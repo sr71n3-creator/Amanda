@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMANDA PRO - Sistema Funcional</title>
+    <title>AMANDA PRO - Sistema Funcional Completo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -14,6 +14,8 @@
             --accent-purple: #6f42c1;
             --accent-gold: #ffc107;
             --accent-teal: #20c997;
+            --accent-danger: #dc3545;
+            --accent-success: #28a745;
             --shadow-heavy: 0 10px 20px rgba(0, 0, 0, 0.5);
             --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
@@ -124,9 +126,33 @@
             color: var(--accent-teal);
         }
 
+        /* Botões de Ação */
+        .add-button {
+            background: linear-gradient(to right, var(--accent-teal), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .add-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(32, 201, 151, 0.3);
+        }
+
         /* Treino Semanal FUNCIONAL */
         .training-section {
             margin-bottom: 30px;
+            position: relative;
         }
 
         .section-title {
@@ -181,6 +207,12 @@
             color: white;
         }
 
+        .day-muscles {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            margin-top: 5px;
+        }
+
         .day-status {
             width: 12px;
             height: 12px;
@@ -204,7 +236,8 @@
         }
 
         .exercises-container.expanded {
-            max-height: 500px;
+            max-height: 800px;
+            overflow-y: auto;
         }
 
         .exercise-item {
@@ -213,20 +246,37 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-item:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .exercise-item:last-child {
             border-bottom: none;
         }
 
+        .exercise-item.completed {
+            background: rgba(32, 201, 151, 0.1);
+        }
+
         .exercise-name {
             color: #ccc;
             flex: 1;
+            font-size: 0.95rem;
         }
 
         .exercise-sets {
             color: var(--accent-gold);
             font-weight: 500;
+            margin-left: 10px;
+            font-size: 0.9rem;
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: 8px;
             margin-left: 10px;
         }
 
@@ -234,21 +284,44 @@
             background: transparent;
             border: 2px solid var(--accent-purple);
             color: var(--accent-purple);
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: 10px;
             transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .complete-btn:hover {
+            background: rgba(111, 66, 193, 0.1);
         }
 
         .complete-btn.completed {
             background: var(--accent-teal);
             border-color: var(--accent-teal);
             color: white;
+        }
+
+        .edit-btn {
+            background: transparent;
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .edit-btn:hover {
+            background: rgba(255, 193, 7, 0.1);
         }
 
         /* Sistema de Checklist FUNCIONAL */
@@ -258,6 +331,7 @@
             padding: 25px;
             margin-bottom: 30px;
             box-shadow: var(--shadow-heavy);
+            position: relative;
         }
 
         .checklist-grid {
@@ -276,6 +350,7 @@
             gap: 15px;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            position: relative;
         }
 
         .checklist-item:hover {
@@ -289,8 +364,8 @@
         }
 
         .check-icon {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             border: 2px solid var(--accent-purple);
             display: flex;
@@ -298,6 +373,11 @@
             justify-content: center;
             cursor: pointer;
             flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .check-icon:hover {
+            background: rgba(111, 66, 193, 0.1);
         }
 
         .check-icon.completed {
@@ -323,6 +403,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 1rem;
         }
 
         .checklist-progress {
@@ -331,6 +412,7 @@
             border-radius: 3px;
             margin-top: 8px;
             overflow: hidden;
+            position: relative;
         }
 
         .progress-fill {
@@ -339,6 +421,50 @@
             border-radius: 3px;
             width: 0%;
             transition: width 1s ease;
+        }
+
+        .checklist-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .checklist-item:hover .checklist-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--accent-pink);
+            transform: scale(1.1);
+        }
+
+        .action-btn.delete {
+            background: rgba(220, 53, 69, 0.2);
+            color: #ff6b6b;
+        }
+
+        .action-btn.delete:hover {
+            background: var(--accent-danger);
+            color: white;
         }
 
         /* Sistema de Dados FUNCIONAL */
@@ -367,6 +493,11 @@
             transition: all 0.3s ease;
             font-family: 'Oswald', sans-serif;
             border: 2px solid transparent;
+            font-size: 0.9rem;
+        }
+
+        .data-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .data-tab.active {
@@ -411,6 +542,7 @@
             color: white;
             font-size: 1rem;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
@@ -476,7 +608,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Modal para trocar foto */
+        /* Modais */
         .modal {
             display: none;
             position: fixed;
@@ -488,6 +620,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .modal-content {
@@ -495,8 +628,10 @@
             padding: 30px;
             border-radius: 15px;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             border: 2px solid var(--accent-pink);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-title {
@@ -505,6 +640,10 @@
             color: white;
             margin-bottom: 20px;
             text-align: center;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
         }
 
         .photo-options {
@@ -521,6 +660,7 @@
             cursor: pointer;
             border: 3px solid transparent;
             transition: all 0.3s ease;
+            margin: 0 auto;
         }
 
         .photo-option:hover {
@@ -537,6 +677,7 @@
             display: flex;
             gap: 10px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .modal-btn {
@@ -546,6 +687,7 @@
             font-family: 'Oswald', sans-serif;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .modal-btn.confirm {
@@ -553,9 +695,174 @@
             color: white;
         }
 
+        .modal-btn.delete {
+            background: linear-gradient(to right, var(--accent-danger), #c82333);
+            color: white;
+        }
+
         .modal-btn.cancel {
             background: rgba(255, 255, 255, 0.1);
             color: white;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .day-selection {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .day-option {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .day-option:hover {
+            background: rgba(232, 62, 140, 0.2);
+            border-color: var(--accent-pink);
+        }
+
+        /* Notificações */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(to right, var(--accent-pink), var(--accent-purple));
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-heavy);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            transform: translateX(200%);
+            transition: transform 0.5s ease;
+            max-width: 300px;
+        }
+
+        .notification.success {
+            background: linear-gradient(to right, var(--accent-success), #1e7e34);
+        }
+
+        .notification.error {
+            background: linear-gradient(to right, var(--accent-danger), #c82333);
+        }
+
+        .notification.warning {
+            background: linear-gradient(to right, var(--accent-gold), #e0a800);
+        }
+
+        .notification.info {
+            background: linear-gradient(to right, #17a2b8, #138496);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Login Modal */
+        .login-modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            border: 3px solid var(--accent-pink);
+            text-align: center;
+        }
+
+        .login-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .login-input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .login-input-group label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--accent-pink);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--accent-pink), var(--accent-purple));
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(232, 62, 140, 0.3);
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            margin-top: 5px;
+        }
+
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 3px;
         }
 
         /* Responsividade */
@@ -582,28 +889,37 @@
                 flex-direction: column;
                 text-align: center;
             }
+            
+            .date-display {
+                text-align: center;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .photo-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .day-selection {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* Notificações */
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(to right, var(--accent-pink), var(--accent-purple));
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-heavy);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 100;
-            transform: translateX(200%);
-            transition: transform 0.5s ease;
-        }
-
-        .notification.show {
-            transform: translateX(0);
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .checklist-title {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -612,6 +928,32 @@
     <div id="notification" class="notification">
         <i class="fas fa-check-circle"></i>
         <span id="notificationText">Dados salvos com sucesso!</span>
+    </div>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-content">
+            <h1 class="login-title">AMANDA PRO</h1>
+            <p class="login-subtitle">Sistema de Treino e Monitoramento</p>
+            
+            <div class="login-input-group">
+                <label for="loginUsername"><i class="fas fa-user"></i> Usuário</label>
+                <input type="text" id="loginUsername" class="login-input" placeholder="Digite seu usuário" value="amanda">
+            </div>
+            
+            <div class="login-input-group">
+                <label for="loginPassword"><i class="fas fa-lock"></i> Senha</label>
+                <input type="password" id="loginPassword" class="login-input" placeholder="Digite sua senha" value="pro123">
+            </div>
+            
+            <button id="loginBtn" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Entrar no Sistema
+            </button>
+            
+            <p style="margin-top: 20px; color: #ccc; font-size: 0.9rem;">
+                Use: amanda / pro123
+            </p>
+        </div>
     </div>
 
     <!-- Modal para trocar foto -->
@@ -633,7 +975,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="mainContainer" style="display: none;">
         <!-- Header Funcional -->
         <header class="header">
             <div class="profile-section">
@@ -645,12 +987,12 @@
                 </div>
                 <div class="profile-info">
                     <h1 id="athleteName">AMANDA</h1>
-                    <span class="phase">BULKING QUALIDADE • BIKINI MARÇO 2024</span>
+                    <span class="phase" id="phaseText">BULKING QUALIDADE • BIKINI MARÇO 2024</span>
                 </div>
             </div>
             <div class="date-display">
                 <div id="currentDate" class="current-date">Carregando...</div>
-                <div class="week-progress">Semana 2 de 12 • Progresso: 15%</div>
+                <div class="week-progress" id="weekProgress">Semana 2 de 12 • Progresso: 15%</div>
             </div>
         </header>
 
@@ -662,6 +1004,9 @@
             <div class="training-grid" id="trainingGrid">
                 <!-- Dias serão carregados via JavaScript -->
             </div>
+            <button id="addExerciseBtn" class="add-button">
+                <i class="fas fa-plus"></i> Adicionar Exercício
+            </button>
         </section>
 
         <!-- Sistema de Checklist FUNCIONAL -->
@@ -672,6 +1017,9 @@
             <div class="checklist-grid" id="checklistGrid">
                 <!-- Checklist será carregado via JavaScript -->
             </div>
+            <button id="addChecklistItemBtn" class="add-button">
+                <i class="fas fa-plus"></i> Novo Item
+            </button>
         </section>
 
         <!-- Sistema de Dados FUNCIONAL -->
@@ -693,19 +1041,19 @@
                 <div class="data-grid">
                     <div class="input-group">
                         <label><i class="fas fa-tint"></i> Água (litros)</label>
-                        <input type="number" id="waterInput" step="0.1" value="5.5">
+                        <input type="number" id="waterInput" step="0.1" min="0" max="20" placeholder="Ex: 5.5">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-drumstick-bite"></i> Proteína (g)</label>
-                        <input type="number" id="proteinInput" value="200">
+                        <input type="number" id="proteinInput" min="0" max="500" placeholder="Ex: 200">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-bread-slice"></i> Carboidratos (g)</label>
-                        <input type="number" id="carbsInput" value="320">
+                        <input type="number" id="carbsInput" min="0" max="1000" placeholder="Ex: 320">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-seedling"></i> Vegetais (porções)</label>
-                        <input type="number" id="veggiesInput" value="4">
+                        <input type="number" id="veggiesInput" min="0" max="10" placeholder="Ex: 4">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-utensils"></i> Refeições</label>
@@ -717,11 +1065,13 @@
                             <option value="4">4/7</option>
                             <option value="5">5/7</option>
                             <option value="6">6/7</option>
-                            <option value="7" selected>7/7</option>
+                            <option value="7">7/7</option>
                         </select>
                     </div>
                 </div>
-                <button class="save-btn" onclick="saveNutritionData()">Salvar Dados Nutricionais</button>
+                <button class="save-btn" onclick="saveNutritionData()">
+                    <i class="fas fa-save"></i> Salvar Dados Nutricionais
+                </button>
             </div>
             
             <!-- Medidas -->
@@ -729,30 +1079,32 @@
                 <div class="data-grid">
                     <div class="input-group">
                         <label><i class="fas fa-weight"></i> Peso (kg)</label>
-                        <input type="number" id="weightInput" step="0.1" value="68.5">
+                        <input type="number" id="weightInput" step="0.1" min="30" max="200" placeholder="Ex: 68.5">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-percentage"></i> % Gordura</label>
-                        <input type="number" id="fatInput" step="0.1" value="12.5">
+                        <input type="number" id="fatInput" step="0.1" min="5" max="50" placeholder="Ex: 12.5">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-expand-alt"></i> Braço (cm)</label>
-                        <input type="number" id="armInput" step="0.1" value="38.5">
+                        <input type="number" id="armInput" step="0.1" min="10" max="100" placeholder="Ex: 38.5">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-expand-alt"></i> Coxa (cm)</label>
-                        <input type="number" id="thighInput" step="0.1" value="58.0">
+                        <input type="number" id="thighInput" step="0.1" min="20" max="150" placeholder="Ex: 58.0">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-compress-alt"></i> Cintura (cm)</label>
-                        <input type="number" id="waistInput" step="0.1" value="68.0">
+                        <input type="number" id="waistInput" step="0.1" min="40" max="150" placeholder="Ex: 68.0">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-expand-alt"></i> Quadril (cm)</label>
-                        <input type="number" id="hipInput" step="0.1" value="92.0">
+                        <input type="number" id="hipInput" step="0.1" min="60" max="200" placeholder="Ex: 92.0">
                     </div>
                 </div>
-                <button class="save-btn" onclick="saveMeasuresData()">Salvar Medidas</button>
+                <button class="save-btn" onclick="saveMeasuresData()">
+                    <i class="fas fa-save"></i> Salvar Medidas
+                </button>
             </div>
             
             <!-- Hormonização -->
@@ -763,17 +1115,17 @@
                         <select id="testosteroneInput">
                             <option value="50mg">50mg</option>
                             <option value="75mg">75mg</option>
-                            <option value="100mg" selected>100mg</option>
+                            <option value="100mg">100mg</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-clock"></i> Horário</label>
-                        <input type="time" id="hormoneTimeInput" value="08:00">
+                        <input type="time" id="hormoneTimeInput">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-calendar"></i> Aplicado Hoje</label>
                         <select id="hormoneAppliedInput">
-                            <option value="true" selected>Sim</option>
+                            <option value="true">Sim</option>
                             <option value="false">Não</option>
                         </select>
                     </div>
@@ -782,7 +1134,9 @@
                         <textarea id="hormoneNotesInput" rows="3" placeholder="Ex: Aplicação no ombro..."></textarea>
                     </div>
                 </div>
-                <button class="save-btn" onclick="saveHormoneData()">Salvar Hormonização</button>
+                <button class="save-btn" onclick="saveHormoneData()">
+                    <i class="fas fa-save"></i> Salvar Hormonização
+                </button>
             </div>
             
             <!-- Suplementos -->
@@ -791,47 +1145,49 @@
                     <div class="input-group">
                         <label><i class="fas fa-capsules"></i> Creatina (5g)</label>
                         <select id="creatineInput">
-                            <option value="true" selected>Tomado</option>
+                            <option value="true">Tomado</option>
                             <option value="false">Não tomado</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-liver"></i> Proteção Hepática</label>
                         <select id="liverInput">
-                            <option value="true" selected>Tomado</option>
+                            <option value="true">Tomado</option>
                             <option value="false">Não tomado</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-mug-hot"></i> Chá Saw Palmetto</label>
                         <select id="teaInput">
-                            <option value="true" selected>Tomado</option>
+                            <option value="true">Tomado</option>
                             <option value="false">Não tomado</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-heart"></i> Ômega 3</label>
                         <select id="omegaInput">
-                            <option value="true" selected>Tomado</option>
+                            <option value="true">Tomado</option>
                             <option value="false">Não tomado</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-vitamins"></i> Complexo B</label>
                         <select id="vitaminBInput">
-                            <option value="true" selected>Tomado</option>
+                            <option value="true">Tomado</option>
                             <option value="false">Não tomado</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-bed"></i> ZMA</label>
                         <select id="zmaInput">
-                            <option value="true" selected>Tomado</option>
+                            <option value="true">Tomado</option>
                             <option value="false">Não tomado</option>
                         </select>
                     </div>
                 </div>
-                <button class="save-btn" onclick="saveSupplementsData()">Salvar Suplementação</button>
+                <button class="save-btn" onclick="saveSupplementsData()">
+                    <i class="fas fa-save"></i> Salvar Suplementação
+                </button>
             </div>
             
             <!-- Sono & Recuperação -->
@@ -839,14 +1195,14 @@
                 <div class="data-grid">
                     <div class="input-group">
                         <label><i class="fas fa-bed"></i> Horas de Sono</label>
-                        <input type="number" id="sleepHoursInput" step="0.5" value="8.0">
+                        <input type="number" id="sleepHoursInput" step="0.5" min="0" max="24" placeholder="Ex: 8.0">
                     </div>
                     <div class="input-group">
                         <label><i class="fas fa-star"></i> Qualidade (1-10)</label>
                         <select id="sleepQualityInput">
                             <option value="10">10 - Excelente</option>
                             <option value="9">9</option>
-                            <option value="8" selected>8</option>
+                            <option value="8">8</option>
                             <option value="7">7</option>
                             <option value="6">6</option>
                             <option value="5">5</option>
@@ -861,7 +1217,7 @@
                         <select id="stressInput">
                             <option value="1">1 - Muito Baixo</option>
                             <option value="2">2</option>
-                            <option value="3" selected>3</option>
+                            <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5 - Moderado</option>
                             <option value="6">6</option>
@@ -874,12 +1230,14 @@
                     <div class="input-group">
                         <label><i class="fas fa-spa"></i> Recuperação Ativa</label>
                         <select id="recoveryInput">
-                            <option value="true" selected>Realizada</option>
+                            <option value="true">Realizada</option>
                             <option value="false">Não realizada</option>
                         </select>
                     </div>
                 </div>
-                <button class="save-btn" onclick="saveSleepData()">Salvar Dados de Sono</button>
+                <button class="save-btn" onclick="saveSleepData()">
+                    <i class="fas fa-save"></i> Salvar Dados de Sono
+                </button>
             </div>
         </section>
 
@@ -894,134 +1252,114 @@
 
     <script>
         // ==============================
-        // SISTEMA DE ARMAZENAMENTO REAL
-        // ==============================
-
-        // Chaves para localStorage
-        const STORAGE_KEYS = {
-            PROFILE: 'amanda_profile',
-            TRAINING: 'amanda_training',
-            CHECKLIST: 'amanda_checklist',
-            NUTRITION: 'amanda_nutrition',
-            MEASURES: 'amanda_measures',
-            HORMONES: 'amanda_hormones',
-            SUPPLEMENTS: 'amanda_supplements',
-            SLEEP: 'amanda_sleep',
-            LAST_MOTIVATION: 'amanda_last_motivation'
-        };
-
-        // ==============================
         // DADOS INICIAIS DO SISTEMA
         // ==============================
 
-        // Treino semanal COMPLETO
         const WEEKLY_TRAINING = {
             monday: {
                 day: "SEGUNDA",
                 muscles: "PEITO, TRÍCEPS, PRANCHA, PANTURRILHA",
                 exercises: [
-                    { name: "Supino Reto", sets: "4x8-12", completed: false },
-                    { name: "Supino Inclinado", sets: "3x10-12", completed: false },
-                    { name: "Crucifixo", sets: "3x12-15", completed: false },
-                    { name: "Tríceps Pulley", sets: "4x10-12", completed: false },
-                    { name: "Tríceps Francês", sets: "3x12-15", completed: false },
-                    { name: "Prancha", sets: "3x1min", completed: false },
-                    { name: "Panturrilha Sentado", sets: "4x15-20", completed: false }
+                    { id: Date.now() + 1, name: "Supino Reto", sets: "4x8-12", completed: false, notes: "" },
+                    { id: Date.now() + 2, name: "Supino Inclinado", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 3, name: "Crucifixo", sets: "3x12-15", completed: false, notes: "" },
+                    { id: Date.now() + 4, name: "Tríceps Pulley", sets: "4x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 5, name: "Tríceps Francês", sets: "3x12-15", completed: false, notes: "" },
+                    { id: Date.now() + 6, name: "Prancha", sets: "3x1min", completed: false, notes: "" },
+                    { id: Date.now() + 7, name: "Panturrilha Sentado", sets: "4x15-20", completed: false, notes: "" }
                 ]
             },
             tuesday: {
                 day: "TERÇA",
                 muscles: "TRAPÉZIO, OMBRO, PERNA",
                 exercises: [
-                    { name: "Desenvolvimento Militar", sets: "4x8-12", completed: false },
-                    { name: "Elevação Lateral", sets: "3x12-15", completed: false },
-                    { name: "Remada Alta", sets: "3x10-12", completed: false },
-                    { name: "Agachamento Livre", sets: "4x8-10", completed: false },
-                    { name: "Leg Press", sets: "3x10-12", completed: false },
-                    { name: "Cadeira Extensora", sets: "3x12-15", completed: false },
-                    { name: "Mesa Flexora", sets: "3x12-15", completed: false }
+                    { id: Date.now() + 8, name: "Desenvolvimento Militar", sets: "4x8-12", completed: false, notes: "" },
+                    { id: Date.now() + 9, name: "Elevação Lateral", sets: "3x12-15", completed: false, notes: "" },
+                    { id: Date.now() + 10, name: "Remada Alta", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 11, name: "Agachamento Livre", sets: "4x8-10", completed: false, notes: "" },
+                    { id: Date.now() + 12, name: "Leg Press", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 13, name: "Cadeira Extensora", sets: "3x12-15", completed: false, notes: "" },
+                    { id: Date.now() + 14, name: "Mesa Flexora", sets: "3x12-15", completed: false, notes: "" }
                 ]
             },
             wednesday: {
                 day: "QUARTA",
                 muscles: "COSTAS, BÍCEPS, ABDOMINAL, ANTEBRAÇO, PANTURRILHA",
                 exercises: [
-                    { name: "Barra Fixa", sets: "4x8-12", completed: false },
-                    { name: "Remada Curvada", sets: "4x8-10", completed: false },
-                    { name: "Pulldown", sets: "3x10-12", completed: false },
-                    { name: "Rosca Direta", sets: "4x8-12", completed: false },
-                    { name: "Rosca Alternada", sets: "3x10-12", completed: false },
-                    { name: "Abdominal Supra", sets: "3x15-20", completed: false },
-                    { name: "Abdominal Infra", sets: "3x15-20", completed: false },
-                    { name: "Rosca Punho", sets: "3x15-20", completed: false },
-                    { name: "Panturrilha em Pé", sets: "4x15-20", completed: false }
+                    { id: Date.now() + 15, name: "Barra Fixa", sets: "4x8-12", completed: false, notes: "" },
+                    { id: Date.now() + 16, name: "Remada Curvada", sets: "4x8-10", completed: false, notes: "" },
+                    { id: Date.now() + 17, name: "Pulldown", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 18, name: "Rosca Direta", sets: "4x8-12", completed: false, notes: "" },
+                    { id: Date.now() + 19, name: "Rosca Alternada", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 20, name: "Abdominal Supra", sets: "3x15-20", completed: false, notes: "" },
+                    { id: Date.now() + 21, name: "Abdominal Infra", sets: "3x15-20", completed: false, notes: "" },
+                    { id: Date.now() + 22, name: "Rosca Punho", sets: "3x15-20", completed: false, notes: "" },
+                    { id: Date.now() + 23, name: "Panturrilha em Pé", sets: "4x15-20", completed: false, notes: "" }
                 ]
             },
             thursday: {
                 day: "QUINTA",
                 muscles: "PEITO, TRÍCEPS, PRANCHA, PANTURRILHA",
                 exercises: [
-                    { name: "Supino Reto", sets: "4x8-12", completed: false },
-                    { name: "Supino Inclinado", sets: "3x10-12", completed: false },
-                    { name: "Crucifixo", sets: "3x12-15", completed: false },
-                    { name: "Tríceps Corda", sets: "4x10-12", completed: false },
-                    { name: "Tríceps Testa", sets: "3x12-15", completed: false },
-                    { name: "Prancha Lateral", sets: "3x45s cada", completed: false },
-                    { name: "Panturrilha Leg Press", sets: "4x15-20", completed: false }
+                    { id: Date.now() + 24, name: "Supino Reto", sets: "4x8-12", completed: false, notes: "" },
+                    { id: Date.now() + 25, name: "Supino Inclinado", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 26, name: "Crucifixo", sets: "3x12-15", completed: false, notes: "" },
+                    { id: Date.now() + 27, name: "Tríceps Corda", sets: "4x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 28, name: "Tríceps Testa", sets: "3x12-15", completed: false, notes: "" },
+                    { id: Date.now() + 29, name: "Prancha Lateral", sets: "3x45s cada", completed: false, notes: "" },
+                    { id: Date.now() + 30, name: "Panturrilha Leg Press", sets: "4x15-20", completed: false, notes: "" }
                 ]
             },
             friday: {
                 day: "SEXTA",
                 muscles: "TRAPÉZIO, OMBRO, PERNA",
                 exercises: [
-                    { name: "Desenvolvimento Arnold", sets: "4x8-12", completed: false },
-                    { name: "Elevação Frontal", sets: "3x12-15", completed: false },
-                    { name: "Encolhimento com Halteres", sets: "3x10-12", completed: false },
-                    { name: "Agachamento Hack", sets: "4x8-10", completed: false },
-                    { name: "Afundo", sets: "3x10-12 cada", completed: false },
-                    { name: "Stiff", sets: "3x10-12", completed: false },
-                    { name: "Cadeira Adutora", sets: "3x12-15", completed: false }
+                    { id: Date.now() + 31, name: "Desenvolvimento Arnold", sets: "4x8-12", completed: false, notes: "" },
+                    { id: Date.now() + 32, name: "Elevação Frontal", sets: "3x12-15", completed: false, notes: "" },
+                    { id: Date.now() + 33, name: "Encolhimento com Halteres", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 34, name: "Agachamento Hack", sets: "4x8-10", completed: false, notes: "" },
+                    { id: Date.now() + 35, name: "Afundo", sets: "3x10-12 cada", completed: false, notes: "" },
+                    { id: Date.now() + 36, name: "Stiff", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 37, name: "Cadeira Adutora", sets: "3x12-15", completed: false, notes: "" }
                 ]
             },
             saturday: {
                 day: "SÁBADO",
                 muscles: "COSTAS, BÍCEPS, ABDOMINAL, ANTEBRAÇO, PANTURRILHA",
                 exercises: [
-                    { name: "Pulldown Frente", sets: "4x8-12", completed: false },
-                    { name: "Remada Baixa", sets: "4x8-10", completed: false },
-                    { name: "Puxada Triângulo", sets: "3x10-12", completed: false },
-                    { name: "Rosca Martelo", sets: "4x8-12", completed: false },
-                    { name: "Rosca Concentrada", sets: "3x10-12", completed: false },
-                    { name: "Prancha Abdominal", sets: "3x1min", completed: false },
-                    { name: "Elevação de Pernas", sets: "3x15-20", completed: false },
-                    { name: "Rosca Punho Invertida", sets: "3x15-20", completed: false },
-                    { name: "Panturrilha Burro", sets: "4x15-20", completed: false }
+                    { id: Date.now() + 38, name: "Pulldown Frente", sets: "4x8-12", completed: false, notes: "" },
+                    { id: Date.now() + 39, name: "Remada Baixa", sets: "4x8-10", completed: false, notes: "" },
+                    { id: Date.now() + 40, name: "Puxada Triângulo", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 41, name: "Rosca Martelo", sets: "4x8-12", completed: false, notes: "" },
+                    { id: Date.now() + 42, name: "Rosca Concentrada", sets: "3x10-12", completed: false, notes: "" },
+                    { id: Date.now() + 43, name: "Prancha Abdominal", sets: "3x1min", completed: false, notes: "" },
+                    { id: Date.now() + 44, name: "Elevação de Pernas", sets: "3x15-20", completed: false, notes: "" },
+                    { id: Date.now() + 45, name: "Rosca Punho Invertida", sets: "3x15-20", completed: false, notes: "" },
+                    { id: Date.now() + 46, name: "Panturrilha Burro", sets: "4x15-20", completed: false, notes: "" }
                 ]
             },
             sunday: {
                 day: "DOMINGO",
                 muscles: "DESCANSO ATIVO / RECUPERAÇÃO",
                 exercises: [
-                    { name: "Alongamento Completo", sets: "30min", completed: false },
-                    { name: "Foam Rolling", sets: "20min", completed: false },
-                    { name: "Caminhada Leve", sets: "45min", completed: false }
+                    { id: Date.now() + 47, name: "Alongamento Completo", sets: "30min", completed: false, notes: "" },
+                    { id: Date.now() + 48, name: "Foam Rolling", sets: "20min", completed: false, notes: "" },
+                    { id: Date.now() + 49, name: "Caminhada Leve", sets: "45min", completed: false, notes: "" }
                 ]
             }
         };
 
-        // Checklist diário
         const DAILY_CHECKLIST = [
-            { id: 1, title: "5.5L de Água", icon: "fas fa-tint", progress: 75 },
-            { id: 2, title: "200g Proteína", icon: "fas fa-drumstick-bite", progress: 90 },
-            { id: 3, title: "7 Refeições", icon: "fas fa-utensils", progress: 85 },
-            { id: 4, title: "Treino Completo", icon: "fas fa-dumbbell", progress: 95 },
-            { id: 5, title: "Suplementação", icon: "fas fa-capsules", progress: 80 },
-            { id: 6, title: "8h Sono", icon: "fas fa-bed", progress: 70 },
-            { id: 7, title: "Hormonização", icon: "fas fa-syringe", progress: 100 },
-            { id: 8, title: "Recuperação", icon: "fas fa-spa", progress: 60 }
+            { id: Date.now() + 50, title: "5.5L de Água", icon: "fas fa-tint", progress: 75, completed: false, target: 1, current: 0.75, editable: true },
+            { id: Date.now() + 51, title: "200g Proteína", icon: "fas fa-drumstick-bite", progress: 90, completed: false, target: 1, current: 0.9, editable: true },
+            { id: Date.now() + 52, title: "7 Refeições", icon: "fas fa-utensils", progress: 85, completed: false, target: 1, current: 0.85, editable: true },
+            { id: Date.now() + 53, title: "Treino Completo", icon: "fas fa-dumbbell", progress: 95, completed: false, target: 1, current: 0.95, editable: true },
+            { id: Date.now() + 54, title: "Suplementação", icon: "fas fa-capsules", progress: 80, completed: false, target: 1, current: 0.8, editable: true },
+            { id: Date.now() + 55, title: "8h Sono", icon: "fas fa-bed", progress: 70, completed: false, target: 1, current: 0.7, editable: true },
+            { id: Date.now() + 56, title: "Hormonização", icon: "fas fa-syringe", progress: 100, completed: true, target: 1, current: 1, editable: true },
+            { id: Date.now() + 57, title: "Recuperação", icon: "fas fa-spa", progress: 60, completed: false, target: 1, current: 0.6, editable: true }
         ];
 
-        // Mensagens motivacionais
         const MOTIVATIONAL_MESSAGES = [
             "A disciplina de hoje é o palco de amanhã. Cada escolha certa te aproxima da sua melhor versão.",
             "Forja no ferro, esculpe na dor, conquista com elegância. O palco bikini espera por você!",
@@ -1034,439 +1372,990 @@
         ];
 
         // ==============================
-        // SISTEMA DE INICIALIZAÇÃO
+        // SISTEMA PRINCIPAL
         // ==============================
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar data
-            updateCurrentDate();
-            
-            // Inicializar sistema de armazenamento
-            initializeStorage();
-            
-            // Carregar dados salvos
-            loadProfileData();
-            loadTrainingData();
-            loadChecklistData();
-            loadNutritionData();
-            loadMeasuresData();
-            loadHormonesData();
-            loadSupplementsData();
-            loadSleepData();
-            loadMotivation();
-            
-            // Configurar eventos
-            setupEventListeners();
-            
-            // Renderizar interface
-            renderTrainingGrid();
-            renderChecklist();
-        });
-
-        // ==============================
-        // FUNÇÕES DO SISTEMA
-        // ==============================
-
-        function initializeStorage() {
-            // Inicializar dados se não existirem
-            if (!localStorage.getItem(STORAGE_KEYS.TRAINING)) {
-                localStorage.setItem(STORAGE_KEYS.TRAINING, JSON.stringify(WEEKLY_TRAINING));
-            }
-            if (!localStorage.getItem(STORAGE_KEYS.CHECKLIST)) {
-                localStorage.setItem(STORAGE_KEYS.CHECKLIST, JSON.stringify(DAILY_CHECKLIST));
-            }
-            if (!localStorage.getItem(STORAGE_KEYS.PROFILE)) {
-                localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify({
-                    name: "AMANDA",
-                    photo: "1",
-                    phase: "BULKING QUALIDADE • BIKINI MARÇO 2024"
-                }));
-            }
-        }
-
-        function updateCurrentDate() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('pt-BR', options);
-        }
-
-        // ==============================
-        // SISTEMA DE TREINO (100% FUNCIONAL)
-        // ==============================
-
-        function renderTrainingGrid() {
-            const trainingGrid = document.getElementById('trainingGrid');
-            trainingGrid.innerHTML = '';
-            
-            const trainingData = JSON.parse(localStorage.getItem(STORAGE_KEYS.TRAINING) || '{}');
-            const today = new Date().getDay(); // 0 = Domingo, 1 = Segunda...
-            const dayMap = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-            const todayKey = dayMap[today];
-            
-            Object.keys(trainingData).forEach(dayKey => {
-                const day = trainingData[dayKey];
-                const isToday = dayKey === todayKey;
+        class AmandaProSystem {
+            constructor() {
+                this.currentUser = null;
+                this.trainingData = {};
+                this.checklistData = [];
+                this.nutritionData = {};
+                this.measuresData = {};
+                this.hormonesData = {};
+                this.supplementsData = {};
+                this.sleepData = {};
+                this.isAuthenticated = false;
                 
-                const dayCard = document.createElement('div');
-                dayCard.className = `day-card ${isToday ? 'active' : ''}`;
-                dayCard.innerHTML = `
-                    <div class="day-header" onclick="toggleExercises('${dayKey}')">
-                        <div class="day-name">${day.day}</div>
-                        <div class="day-status ${isToday ? 'today' : ''}"></div>
-                    </div>
-                    <div class="exercises-container" id="exercises-${dayKey}">
-                        ${day.exercises.map((exercise, index) => `
-                            <div class="exercise-item">
-                                <span class="exercise-name">${exercise.name}</span>
-                                <span class="exercise-sets">${exercise.sets}</span>
-                                <button class="complete-btn ${exercise.completed ? 'completed' : ''}" 
-                                        onclick="toggleExerciseComplete('${dayKey}', ${index})">
-                                    ${exercise.completed ? '✓' : ''}
-                                </button>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                trainingGrid.appendChild(dayCard);
-            });
-        }
-
-        function toggleExercises(dayKey) {
-            const container = document.getElementById(`exercises-${dayKey}`);
-            container.classList.toggle('expanded');
-        }
-
-        function toggleExerciseComplete(dayKey, exerciseIndex) {
-            const trainingData = JSON.parse(localStorage.getItem(STORAGE_KEYS.TRAINING));
-            trainingData[dayKey].exercises[exerciseIndex].completed = 
-                !trainingData[dayKey].exercises[exerciseIndex].completed;
-            
-            localStorage.setItem(STORAGE_KEYS.TRAINING, JSON.stringify(trainingData));
-            renderTrainingGrid();
-            showNotification("Exercício atualizado!");
-        }
-
-        // ==============================
-        // SISTEMA DE CHECKLIST (100% FUNCIONAL)
-        // ==============================
-
-        function renderChecklist() {
-            const checklistGrid = document.getElementById('checklistGrid');
-            checklistGrid.innerHTML = '';
-            
-            const checklistData = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHECKLIST) || '[]');
-            
-            checklistData.forEach(item => {
-                const checklistItem = document.createElement('div');
-                checklistItem.className = `checklist-item ${item.completed ? 'completed' : ''}`;
-                checklistItem.innerHTML = `
-                    <div class="check-icon ${item.completed ? 'completed' : ''}" 
-                         onclick="toggleChecklistItem(${item.id})"></div>
-                    <div class="checklist-content">
-                        <div class="checklist-title">
-                            <i class="${item.icon}"></i>
-                            <span>${item.title}</span>
-                        </div>
-                        <div class="checklist-progress">
-                            <div class="progress-fill" style="width: ${item.progress}%"></div>
-                        </div>
-                    </div>
-                `;
-                checklistGrid.appendChild(checklistItem);
-            });
-        }
-
-        function toggleChecklistItem(itemId) {
-            const checklistData = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHECKLIST) || '[]');
-            const item = checklistData.find(i => i.id === itemId);
-            
-            if (item) {
-                item.completed = !item.completed;
-                item.progress = item.completed ? 100 : Math.max(item.progress - 20, 0);
-                localStorage.setItem(STORAGE_KEYS.CHECKLIST, JSON.stringify(checklistData));
-                renderChecklist();
-                showNotification("Checklist atualizado!");
+                this.init();
             }
-        }
-
-        // ==============================
-        // SISTEMA DE DADOS (100% FUNCIONAL)
-        // ==============================
-
-        // Funções de salvamento
-        function saveNutritionData() {
-            const data = {
-                water: document.getElementById('waterInput').value,
-                protein: document.getElementById('proteinInput').value,
-                carbs: document.getElementById('carbsInput').value,
-                veggies: document.getElementById('veggiesInput').value,
-                meals: document.getElementById('mealsInput').value,
-                timestamp: new Date().toISOString()
-            };
-            localStorage.setItem(STORAGE_KEYS.NUTRITION, JSON.stringify(data));
-            showNotification("Dados nutricionais salvos!");
-        }
-
-        function saveMeasuresData() {
-            const data = {
-                weight: document.getElementById('weightInput').value,
-                fat: document.getElementById('fatInput').value,
-                arm: document.getElementById('armInput').value,
-                thigh: document.getElementById('thighInput').value,
-                waist: document.getElementById('waistInput').value,
-                hip: document.getElementById('hipInput').value,
-                timestamp: new Date().toISOString()
-            };
-            localStorage.setItem(STORAGE_KEYS.MEASURES, JSON.stringify(data));
-            showNotification("Medidas salvas!");
-        }
-
-        function saveHormoneData() {
-            const data = {
-                testosterone: document.getElementById('testosteroneInput').value,
-                time: document.getElementById('hormoneTimeInput').value,
-                applied: document.getElementById('hormoneAppliedInput').value,
-                notes: document.getElementById('hormoneNotesInput').value,
-                timestamp: new Date().toISOString()
-            };
-            localStorage.setItem(STORAGE_KEYS.HORMONES, JSON.stringify(data));
-            showNotification("Hormonização salva!");
-        }
-
-        function saveSupplementsData() {
-            const data = {
-                creatine: document.getElementById('creatineInput').value,
-                liver: document.getElementById('liverInput').value,
-                tea: document.getElementById('teaInput').value,
-                omega: document.getElementById('omegaInput').value,
-                vitaminB: document.getElementById('vitaminBInput').value,
-                zma: document.getElementById('zmaInput').value,
-                timestamp: new Date().toISOString()
-            };
-            localStorage.setItem(STORAGE_KEYS.SUPPLEMENTS, JSON.stringify(data));
-            showNotification("Suplementação salva!");
-        }
-
-        function saveSleepData() {
-            const data = {
-                hours: document.getElementById('sleepHoursInput').value,
-                quality: document.getElementById('sleepQualityInput').value,
-                stress: document.getElementById('stressInput').value,
-                recovery: document.getElementById('recoveryInput').value,
-                timestamp: new Date().toISOString()
-            };
-            localStorage.setItem(STORAGE_KEYS.SLEEP, JSON.stringify(data));
-            showNotification("Dados de sono salvos!");
-        }
-
-        // Funções de carregamento
-        function loadNutritionData() {
-            const data = JSON.parse(localStorage.getItem(STORAGE_KEYS.NUTRITION) || '{}');
-            if (data.water) document.getElementById('waterInput').value = data.water;
-            if (data.protein) document.getElementById('proteinInput').value = data.protein;
-            if (data.carbs) document.getElementById('carbsInput').value = data.carbs;
-            if (data.veggies) document.getElementById('veggiesInput').value = data.veggies;
-            if (data.meals) document.getElementById('mealsInput').value = data.meals;
-        }
-
-        function loadMeasuresData() {
-            const data = JSON.parse(localStorage.getItem(STORAGE_KEYS.MEASURES) || '{}');
-            if (data.weight) document.getElementById('weightInput').value = data.weight;
-            if (data.fat) document.getElementById('fatInput').value = data.fat;
-            if (data.arm) document.getElementById('armInput').value = data.arm;
-            if (data.thigh) document.getElementById('thighInput').value = data.thigh;
-            if (data.waist) document.getElementById('waistInput').value = data.waist;
-            if (data.hip) document.getElementById('hipInput').value = data.hip;
-        }
-
-        function loadHormonesData() {
-            const data = JSON.parse(localStorage.getItem(STORAGE_KEYS.HORMONES) || '{}');
-            if (data.testosterone) document.getElementById('testosteroneInput').value = data.testosterone;
-            if (data.time) document.getElementById('hormoneTimeInput').value = data.time;
-            if (data.applied) document.getElementById('hormoneAppliedInput').value = data.applied;
-            if (data.notes) document.getElementById('hormoneNotesInput').value = data.notes;
-        }
-
-        function loadSupplementsData() {
-            const data = JSON.parse(localStorage.getItem(STORAGE_KEYS.SUPPLEMENTS) || '{}');
-            if (data.creatine) document.getElementById('creatineInput').value = data.creatine;
-            if (data.liver) document.getElementById('liverInput').value = data.liver;
-            if (data.tea) document.getElementById('teaInput').value = data.tea;
-            if (data.omega) document.getElementById('omegaInput').value = data.omega;
-            if (data.vitaminB) document.getElementById('vitaminBInput').value = data.vitaminB;
-            if (data.zma) document.getElementById('zmaInput').value = data.zma;
-        }
-
-        function loadSleepData() {
-            const data = JSON.parse(localStorage.getItem(STORAGE_KEYS.SLEEP) || '{}');
-            if (data.hours) document.getElementById('sleepHoursInput').value = data.hours;
-            if (data.quality) document.getElementById('sleepQualityInput').value = data.quality;
-            if (data.stress) document.getElementById('stressInput').value = data.stress;
-            if (data.recovery) document.getElementById('recoveryInput').value = data.recovery;
-        }
-
-        function loadProfileData() {
-            const data = JSON.parse(localStorage.getItem(STORAGE_KEYS.PROFILE) || '{}');
-            if (data.name) document.getElementById('athleteName').textContent = data.name;
-            if (data.photo) updateProfilePhoto(data.photo);
-        }
-
-        function loadTrainingData() {
-            // Já carregado na inicialização
-        }
-
-        function loadChecklistData() {
-            // Já carregado na inicialização
-        }
-
-        function loadMotivation() {
-            const today = new Date().toDateString();
-            const lastMotivation = JSON.parse(localStorage.getItem(STORAGE_KEYS.LAST_MOTIVATION) || '{}');
             
-            // Se já tivermos uma motivação para hoje, use-a
-            if (lastMotivation.date === today) {
-                document.getElementById('motivationText').textContent = `"${lastMotivation.message}"`;
-            } else {
-                // Escolha uma nova mensagem
+            init() {
+                console.log('🔧 Inicializando AMANDA PRO Sistema...');
+                this.setupEventListeners();
+                this.checkAuthentication();
+                this.setupAutoSave();
+            }
+            
+            checkAuthentication() {
+                const session = localStorage.getItem('amanda_pro_session');
+                if (session) {
+                    this.currentUser = JSON.parse(session);
+                    this.isAuthenticated = true;
+                    this.showMainApp();
+                    this.loadAllData();
+                } else {
+                    this.showLogin();
+                }
+            }
+            
+            login(username, password) {
+                // Simulação de login - em produção, isso seria uma API
+                if (username === "amanda" && password === "pro123") {
+                    const userData = {
+                        id: 1,
+                        username: username,
+                        name: "AMANDA",
+                        email: "amanda@pro.com",
+                        photo: "1",
+                        phase: "BULKING QUALIDADE • BIKINI MARÇO 2024",
+                        lastLogin: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('amanda_pro_session', JSON.stringify(userData));
+                    this.currentUser = userData;
+                    this.isAuthenticated = true;
+                    this.showMainApp();
+                    this.loadAllData();
+                    
+                    this.showNotification("Login realizado com sucesso!", "success");
+                    return true;
+                }
+                
+                this.showNotification("Credenciais inválidas!", "error");
+                return false;
+            }
+            
+            logout() {
+                localStorage.removeItem('amanda_pro_session');
+                this.currentUser = null;
+                this.isAuthenticated = false;
+                this.showLogin();
+                this.showNotification("Logout realizado!", "info");
+            }
+            
+            showLogin() {
+                document.getElementById('loginModal').style.display = 'flex';
+                document.getElementById('mainContainer').style.display = 'none';
+            }
+            
+            showMainApp() {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('mainContainer').style.display = 'block';
+                this.updateUI();
+            }
+            
+            updateUI() {
+                // Atualizar data
+                this.updateCurrentDate();
+                
+                // Atualizar perfil
+                if (this.currentUser) {
+                    document.getElementById('athleteName').textContent = this.currentUser.name;
+                    document.getElementById('phaseText').textContent = this.currentUser.phase;
+                    this.updateProfilePhoto(this.currentUser.photo);
+                }
+                
+                // Carregar dados
+                this.loadTrainingData();
+                this.loadChecklistData();
+                this.loadNutritionData();
+                this.loadMeasuresData();
+                this.loadHormonesData();
+                this.loadSupplementsData();
+                this.loadSleepData();
+                this.loadMotivation();
+            }
+            
+            updateCurrentDate() {
+                const now = new Date();
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+                
+                const dateStr = now.toLocaleDateString('pt-BR', options);
+                document.getElementById('currentDate').textContent = dateStr;
+            }
+            
+            updateProfilePhoto(photoId) {
+                const profilePic = document.getElementById('profilePic');
+                const colors = [
+                    'linear-gradient(45deg, #e83e8c, #6f42c1)',
+                    'linear-gradient(45deg, #20c997, #17a2b8)',
+                    'linear-gradient(45deg, #ffc107, #fd7e14)',
+                    'linear-gradient(45deg, #6f42c1, #e83e8c)',
+                    'linear-gradient(45deg, #17a2b8, #20c997)',
+                    'linear-gradient(45deg, #fd7e14, #ffc107)'
+                ];
+                
+                const colorIndex = parseInt(photoId) - 1;
+                if (colorIndex >= 0 && colorIndex < colors.length) {
+                    profilePic.style.background = colors[colorIndex];
+                }
+                
+                // Salvar preferência
+                if (this.currentUser) {
+                    this.currentUser.photo = photoId;
+                    localStorage.setItem('amanda_pro_session', JSON.stringify(this.currentUser));
+                }
+            }
+            
+            // ==============================
+            // SISTEMA DE TREINO
+            // ==============================
+            
+            loadTrainingData() {
+                const saved = localStorage.getItem('amanda_training_data');
+                if (saved) {
+                    this.trainingData = JSON.parse(saved);
+                } else {
+                    this.trainingData = WEEKLY_TRAINING;
+                    this.saveTrainingData();
+                }
+                
+                this.renderTrainingGrid();
+            }
+            
+            saveTrainingData() {
+                localStorage.setItem('amanda_training_data', JSON.stringify(this.trainingData));
+            }
+            
+            renderTrainingGrid() {
+                const trainingGrid = document.getElementById('trainingGrid');
+                trainingGrid.innerHTML = '';
+                
+                const today = new Date().getDay();
+                const dayMap = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                const todayKey = dayMap[today];
+                
+                Object.keys(this.trainingData).forEach(dayKey => {
+                    const day = this.trainingData[dayKey];
+                    const isToday = dayKey === todayKey;
+                    
+                    // Calcular progresso do dia
+                    const totalExercises = day.exercises.length;
+                    const completedExercises = day.exercises.filter(ex => ex.completed).length;
+                    const progress = totalExercises > 0 ? Math.round((completedExercises / totalExercises) * 100) : 0;
+                    
+                    const dayCard = document.createElement('div');
+                    dayCard.className = `day-card ${isToday ? 'active' : ''}`;
+                    dayCard.innerHTML = `
+                        <div class="day-header" onclick="amandaPro.toggleExercises('${dayKey}')">
+                            <div>
+                                <div class="day-name">${day.day}</div>
+                                <div class="day-muscles">${day.muscles}</div>
+                                <div class="progress-container">
+                                    <div class="progress-text">Progresso: ${progress}%</div>
+                                    <div class="checklist-progress">
+                                        <div class="progress-fill" style="width: ${progress}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="day-status ${isToday ? 'today' : ''} ${progress === 100 ? 'completed' : ''}"></div>
+                        </div>
+                        <div class="exercises-container" id="exercises-${dayKey}">
+                            ${day.exercises.map((exercise, index) => `
+                                <div class="exercise-item ${exercise.completed ? 'completed' : ''}">
+                                    <span class="exercise-name">${exercise.name}</span>
+                                    <span class="exercise-sets">${exercise.sets}</span>
+                                    <div class="exercise-actions">
+                                        <button class="edit-btn" onclick="amandaPro.editExercise('${dayKey}', ${exercise.id})">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="complete-btn ${exercise.completed ? 'completed' : ''}" 
+                                                onclick="amandaPro.toggleExerciseComplete('${dayKey}', ${exercise.id})">
+                                            ${exercise.completed ? '<i class="fas fa-check"></i>' : '<i class="fas fa-check"></i>'}
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    trainingGrid.appendChild(dayCard);
+                });
+            }
+            
+            toggleExercises(dayKey) {
+                const container = document.getElementById(`exercises-${dayKey}`);
+                container.classList.toggle('expanded');
+            }
+            
+            toggleExerciseComplete(dayKey, exerciseId) {
+                const exercise = this.trainingData[dayKey].exercises.find(ex => ex.id === exerciseId);
+                if (exercise) {
+                    exercise.completed = !exercise.completed;
+                    this.saveTrainingData();
+                    this.renderTrainingGrid();
+                    this.showNotification(`Exercício ${exercise.completed ? 'concluído' : 'pendente'}!`, "success");
+                }
+            }
+            
+            editExercise(dayKey, exerciseId) {
+                const exercise = this.trainingData[dayKey].exercises.find(ex => ex.id === exerciseId);
+                if (exercise) {
+                    this.showEditExerciseModal(dayKey, exercise);
+                }
+            }
+            
+            addNewExercise() {
+                this.showDaySelectionModal();
+            }
+            
+            // ==============================
+            // SISTEMA DE CHECKLIST
+            // ==============================
+            
+            loadChecklistData() {
+                const saved = localStorage.getItem('amanda_checklist_data');
+                if (saved) {
+                    this.checklistData = JSON.parse(saved);
+                } else {
+                    this.checklistData = DAILY_CHECKLIST;
+                    this.saveChecklistData();
+                }
+                
+                this.renderChecklist();
+            }
+            
+            saveChecklistData() {
+                localStorage.setItem('amanda_checklist_data', JSON.stringify(this.checklistData));
+            }
+            
+            renderChecklist() {
+                const checklistGrid = document.getElementById('checklistGrid');
+                checklistGrid.innerHTML = '';
+                
+                this.checklistData.forEach(item => {
+                    const checklistItem = document.createElement('div');
+                    checklistItem.className = `checklist-item ${item.completed ? 'completed' : ''}`;
+                    checklistItem.innerHTML = `
+                        <div class="check-icon ${item.completed ? 'completed' : ''}" 
+                             onclick="amandaPro.toggleChecklistItem(${item.id})"></div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">
+                                <i class="${item.icon}"></i>
+                                <span>${item.title}</span>
+                            </div>
+                            <div class="checklist-progress">
+                                <div class="progress-fill" style="width: ${item.progress}%"></div>
+                            </div>
+                        </div>
+                        <div class="checklist-actions">
+                            <button class="action-btn delete" onclick="amandaPro.deleteChecklistItem(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="action-btn" onclick="amandaPro.editChecklistItem(${item.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    `;
+                    checklistGrid.appendChild(checklistItem);
+                });
+            }
+            
+            toggleChecklistItem(itemId) {
+                const item = this.checklistData.find(i => i.id === itemId);
+                if (item) {
+                    item.completed = !item.completed;
+                    item.progress = item.completed ? 100 : 0;
+                    this.saveChecklistData();
+                    this.renderChecklist();
+                    this.showNotification(`Item ${item.completed ? 'concluído' : 'pendente'}!`, "success");
+                }
+            }
+            
+            deleteChecklistItem(itemId) {
+                if (confirm('Tem certeza que deseja excluir este item?')) {
+                    this.checklistData = this.checklistData.filter(item => item.id !== itemId);
+                    this.saveChecklistData();
+                    this.renderChecklist();
+                    this.showNotification("Item excluído!", "success");
+                }
+            }
+            
+            editChecklistItem(itemId) {
+                const item = this.checklistData.find(i => i.id === itemId);
+                if (item) {
+                    this.showEditChecklistModal(item);
+                }
+            }
+            
+            addNewChecklistItem() {
+                this.showEditChecklistModal();
+            }
+            
+            // ==============================
+            // SISTEMA DE DADOS
+            // ==============================
+            
+            loadNutritionData() {
+                const saved = localStorage.getItem('amanda_nutrition_data');
+                if (saved) {
+                    this.nutritionData = JSON.parse(saved);
+                    document.getElementById('waterInput').value = this.nutritionData.water || '';
+                    document.getElementById('proteinInput').value = this.nutritionData.protein || '';
+                    document.getElementById('carbsInput').value = this.nutritionData.carbs || '';
+                    document.getElementById('veggiesInput').value = this.nutritionData.veggies || '';
+                    document.getElementById('mealsInput').value = this.nutritionData.meals || '7';
+                }
+            }
+            
+            saveNutritionData() {
+                const data = {
+                    water: document.getElementById('waterInput').value,
+                    protein: document.getElementById('proteinInput').value,
+                    carbs: document.getElementById('carbsInput').value,
+                    veggies: document.getElementById('veggiesInput').value,
+                    meals: document.getElementById('mealsInput').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                this.nutritionData = data;
+                localStorage.setItem('amanda_nutrition_data', JSON.stringify(data));
+                this.showNotification("Dados nutricionais salvos!", "success");
+                
+                // Atualizar checklist
+                this.updateChecklistFromNutrition(data);
+            }
+            
+            loadMeasuresData() {
+                const saved = localStorage.getItem('amanda_measures_data');
+                if (saved) {
+                    this.measuresData = JSON.parse(saved);
+                    document.getElementById('weightInput').value = this.measuresData.weight || '';
+                    document.getElementById('fatInput').value = this.measuresData.fat || '';
+                    document.getElementById('armInput').value = this.measuresData.arm || '';
+                    document.getElementById('thighInput').value = this.measuresData.thigh || '';
+                    document.getElementById('waistInput').value = this.measuresData.waist || '';
+                    document.getElementById('hipInput').value = this.measuresData.hip || '';
+                }
+            }
+            
+            saveMeasuresData() {
+                const data = {
+                    weight: document.getElementById('weightInput').value,
+                    fat: document.getElementById('fatInput').value,
+                    arm: document.getElementById('armInput').value,
+                    thigh: document.getElementById('thighInput').value,
+                    waist: document.getElementById('waistInput').value,
+                    hip: document.getElementById('hipInput').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                this.measuresData = data;
+                localStorage.setItem('amanda_measures_data', JSON.stringify(data));
+                this.showNotification("Medidas salvas!", "success");
+            }
+            
+            loadHormonesData() {
+                const saved = localStorage.getItem('amanda_hormones_data');
+                if (saved) {
+                    this.hormonesData = JSON.parse(saved);
+                    document.getElementById('testosteroneInput').value = this.hormonesData.testosterone || '100mg';
+                    document.getElementById('hormoneTimeInput').value = this.hormonesData.time || '08:00';
+                    document.getElementById('hormoneAppliedInput').value = this.hormonesData.applied || 'true';
+                    document.getElementById('hormoneNotesInput').value = this.hormonesData.notes || '';
+                }
+            }
+            
+            saveHormoneData() {
+                const data = {
+                    testosterone: document.getElementById('testosteroneInput').value,
+                    time: document.getElementById('hormoneTimeInput').value,
+                    applied: document.getElementById('hormoneAppliedInput').value,
+                    notes: document.getElementById('hormoneNotesInput').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                this.hormonesData = data;
+                localStorage.setItem('amanda_hormones_data', JSON.stringify(data));
+                this.showNotification("Hormonização salva!", "success");
+            }
+            
+            loadSupplementsData() {
+                const saved = localStorage.getItem('amanda_supplements_data');
+                if (saved) {
+                    this.supplementsData = JSON.parse(saved);
+                    document.getElementById('creatineInput').value = this.supplementsData.creatine || 'true';
+                    document.getElementById('liverInput').value = this.supplementsData.liver || 'true';
+                    document.getElementById('teaInput').value = this.supplementsData.tea || 'true';
+                    document.getElementById('omegaInput').value = this.supplementsData.omega || 'true';
+                    document.getElementById('vitaminBInput').value = this.supplementsData.vitaminB || 'true';
+                    document.getElementById('zmaInput').value = this.supplementsData.zma || 'true';
+                }
+            }
+            
+            saveSupplementsData() {
+                const data = {
+                    creatine: document.getElementById('creatineInput').value,
+                    liver: document.getElementById('liverInput').value,
+                    tea: document.getElementById('teaInput').value,
+                    omega: document.getElementById('omegaInput').value,
+                    vitaminB: document.getElementById('vitaminBInput').value,
+                    zma: document.getElementById('zmaInput').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                this.supplementsData = data;
+                localStorage.setItem('amanda_supplements_data', JSON.stringify(data));
+                this.showNotification("Suplementação salva!", "success");
+            }
+            
+            loadSleepData() {
+                const saved = localStorage.getItem('amanda_sleep_data');
+                if (saved) {
+                    this.sleepData = JSON.parse(saved);
+                    document.getElementById('sleepHoursInput').value = this.sleepData.hours || '8.0';
+                    document.getElementById('sleepQualityInput').value = this.sleepData.quality || '8';
+                    document.getElementById('stressInput').value = this.sleepData.stress || '3';
+                    document.getElementById('recoveryInput').value = this.sleepData.recovery || 'true';
+                }
+            }
+            
+            saveSleepData() {
+                const data = {
+                    hours: document.getElementById('sleepHoursInput').value,
+                    quality: document.getElementById('sleepQualityInput').value,
+                    stress: document.getElementById('stressInput').value,
+                    recovery: document.getElementById('recoveryInput').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                this.sleepData = data;
+                localStorage.setItem('amanda_sleep_data', JSON.stringify(data));
+                this.showNotification("Dados de sono salvos!", "success");
+            }
+            
+            loadMotivation() {
+                const today = new Date().toDateString();
+                const lastMotivation = localStorage.getItem('amanda_last_motivation');
+                
+                if (lastMotivation) {
+                    const data = JSON.parse(lastMotivation);
+                    if (data.date === today) {
+                        document.getElementById('motivationText').textContent = `"${data.message}"`;
+                        return;
+                    }
+                }
+                
                 const randomIndex = Math.floor(Math.random() * MOTIVATIONAL_MESSAGES.length);
                 const message = MOTIVATIONAL_MESSAGES[randomIndex];
                 
                 document.getElementById('motivationText').textContent = `"${message}"`;
                 
-                // Salve para hoje
-                localStorage.setItem(STORAGE_KEYS.LAST_MOTIVATION, JSON.stringify({
+                localStorage.setItem('amanda_last_motivation', JSON.stringify({
                     date: today,
                     message: message
                 }));
             }
-        }
-
-        // ==============================
-        // SISTEMA DE PERFIL (100% FUNCIONAL)
-        // ==============================
-
-        function updateProfilePhoto(photoId) {
-            const profilePic = document.getElementById('profilePic');
-            const colors = [
-                'linear-gradient(45deg, #e83e8c, #6f42c1)',
-                'linear-gradient(45deg, #20c997, #17a2b8)',
-                'linear-gradient(45deg, #ffc107, #fd7e14)',
-                'linear-gradient(45deg, #6f42c1, #e83e8c)',
-                'linear-gradient(45deg, #17a2b8, #20c997)',
-                'linear-gradient(45deg, #fd7e14, #ffc107)'
-            ];
             
-            const colorIndex = parseInt(photoId) - 1;
-            if (colorIndex >= 0 && colorIndex < colors.length) {
-                profilePic.style.background = colors[colorIndex];
-            }
+            // ==============================
+            // FUNÇÕES AUXILIARES
+            // ==============================
             
-            // Salvar preferência
-            const profileData = JSON.parse(localStorage.getItem(STORAGE_KEYS.PROFILE) || '{}');
-            profileData.photo = photoId;
-            localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(profileData));
-        }
-
-        // ==============================
-        // CONFIGURAÇÃO DE EVENTOS
-        // ==============================
-
-        function setupEventListeners() {
-            // Tabs de dados
-            document.querySelectorAll('.data-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Remover active de todas as tabs e contents
-                    document.querySelectorAll('.data-tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.data-content').forEach(c => c.classList.remove('active'));
-                    
-                    // Adicionar active à tab clicada
-                    this.classList.add('active');
-                    
-                    // Mostrar content correspondente
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(`${tabId}Content`).classList.add('active');
-                });
-            });
-            
-            // Modal de foto
-            document.getElementById('changePhotoBtn').addEventListener('click', function() {
-                document.getElementById('photoModal').style.display = 'flex';
-            });
-            
-            document.getElementById('cancelPhoto').addEventListener('click', function() {
-                document.getElementById('photoModal').style.display = 'none';
-            });
-            
-            document.getElementById('confirmPhoto').addEventListener('click', function() {
-                const selected = document.querySelector('.photo-option.selected');
-                if (selected) {
-                    const photoId = selected.getAttribute('data-photo');
-                    updateProfilePhoto(photoId);
-                    document.getElementById('photoModal').style.display = 'none';
-                    showNotification("Foto alterada com sucesso!");
+            updateChecklistFromNutrition(nutritionData) {
+                // Atualizar item de água
+                const waterItem = this.checklistData.find(item => item.title.includes("Água"));
+                if (waterItem && nutritionData.water) {
+                    const targetWater = 5.5; // Meta padrão
+                    const currentWater = parseFloat(nutritionData.water);
+                    waterItem.progress = Math.min(Math.round((currentWater / targetWater) * 100), 100);
+                    waterItem.completed = waterItem.progress >= 100;
                 }
-            });
-            
-            // Seleção de fotos
-            document.querySelectorAll('.photo-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.photo-option').forEach(o => o.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
-            
-            // Fechar modal clicando fora
-            document.getElementById('photoModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.style.display = 'none';
-                }
-            });
-        }
-
-        // ==============================
-        // SISTEMA DE NOTIFICAÇÕES
-        // ==============================
-
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notificationText');
-            
-            notificationText.textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // ==============================
-        // INICIALIZAÇÃO FINAL
-        // ==============================
-
-        // Auto-save a cada 30 segundos
-        setInterval(() => {
-            // Verificar se há dados para salvar
-            if (document.activeElement && 
-                (document.activeElement.tagName === 'INPUT' || 
-                 document.activeElement.tagName === 'SELECT' || 
-                 document.activeElement.tagName === 'TEXTAREA')) {
                 
-                const tab = document.querySelector('.data-tab.active');
-                if (tab) {
-                    const tabId = tab.getAttribute('data-tab');
-                    switch(tabId) {
-                        case 'nutrition': saveNutritionData(); break;
-                        case 'measures': saveMeasuresData(); break;
-                        case 'hormones': saveHormoneData(); break;
-                        case 'supplements': saveSupplementsData(); break;
-                        case 'sleep': saveSleepData(); break;
+                // Atualizar item de proteína
+                const proteinItem = this.checklistData.find(item => item.title.includes("Proteína"));
+                if (proteinItem && nutritionData.protein) {
+                    const targetProtein = 200; // Meta padrão
+                    const currentProtein = parseInt(nutritionData.protein);
+                    proteinItem.progress = Math.min(Math.round((currentProtein / targetProtein) * 100), 100);
+                    proteinItem.completed = proteinItem.progress >= 100;
+                }
+                
+                this.saveChecklistData();
+                this.renderChecklist();
+            }
+            
+            showNotification(message, type = "success") {
+                const notification = document.getElementById('notification');
+                const notificationText = document.getElementById('notificationText');
+                const icon = notification.querySelector('i');
+                
+                // Configurar tipo
+                notification.className = 'notification';
+                notification.classList.add(type);
+                notification.classList.add('show');
+                
+                // Configurar ícone
+                const icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
+                };
+                
+                icon.className = `fas ${icons[type] || icons.success}`;
+                notificationText.textContent = message;
+                
+                // Auto-esconder
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            setupEventListeners() {
+                // Login
+                document.getElementById('loginBtn').addEventListener('click', () => {
+                    const username = document.getElementById('loginUsername').value;
+                    const password = document.getElementById('loginPassword').value;
+                    this.login(username, password);
+                });
+                
+                // Permitir Enter no login
+                document.getElementById('loginPassword').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const username = document.getElementById('loginUsername').value;
+                        const password = document.getElementById('loginPassword').value;
+                        this.login(username, password);
                     }
+                });
+                
+                // Tabs de dados
+                document.querySelectorAll('.data-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        document.querySelectorAll('.data-tab').forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.data-content').forEach(c => c.classList.remove('active'));
+                        
+                        tab.classList.add('active');
+                        const tabId = tab.getAttribute('data-tab');
+                        document.getElementById(`${tabId}Content`).classList.add('active');
+                    });
+                });
+                
+                // Botões de adicionar
+                document.getElementById('addExerciseBtn').addEventListener('click', () => this.addNewExercise());
+                document.getElementById('addChecklistItemBtn').addEventListener('click', () => this.addNewChecklistItem());
+                
+                // Modal de foto
+                document.getElementById('changePhotoBtn').addEventListener('click', () => {
+                    document.getElementById('photoModal').style.display = 'flex';
+                });
+                
+                document.getElementById('cancelPhoto').addEventListener('click', () => {
+                    document.getElementById('photoModal').style.display = 'none';
+                });
+                
+                document.getElementById('confirmPhoto').addEventListener('click', () => {
+                    const selected = document.querySelector('.photo-option.selected');
+                    if (selected) {
+                        const photoId = selected.getAttribute('data-photo');
+                        this.updateProfilePhoto(photoId);
+                        document.getElementById('photoModal').style.display = 'none';
+                        this.showNotification("Foto alterada com sucesso!", "success");
+                    }
+                });
+                
+                // Seleção de fotos
+                document.querySelectorAll('.photo-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        document.querySelectorAll('.photo-option').forEach(o => o.classList.remove('selected'));
+                        option.classList.add('selected');
+                    });
+                });
+                
+                // Fechar modais clicando fora
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+                });
+                
+                // Detectar modificações em inputs
+                document.querySelectorAll('input, select, textarea').forEach(input => {
+                    input.addEventListener('input', () => {
+                        input.setAttribute('data-modified', 'true');
+                    });
+                });
+            }
+            
+            setupAutoSave() {
+                // Auto-save a cada 30 segundos
+                setInterval(() => {
+                    this.saveAllData();
+                }, 30000);
+                
+                // Atualizar data a cada minuto
+                setInterval(() => {
+                    this.updateCurrentDate();
+                }, 60000);
+            }
+            
+            saveAllData() {
+                // Verificar se há dados modificados
+                const modifiedInputs = document.querySelectorAll('[data-modified="true"]');
+                if (modifiedInputs.length > 0) {
+                    // Encontrar aba ativa
+                    const activeTab = document.querySelector('.data-tab.active');
+                    if (activeTab) {
+                        const tabId = activeTab.getAttribute('data-tab');
+                        switch(tabId) {
+                            case 'nutrition': this.saveNutritionData(); break;
+                            case 'measures': this.saveMeasuresData(); break;
+                            case 'hormones': this.saveHormoneData(); break;
+                            case 'supplements': this.saveSupplementsData(); break;
+                            case 'sleep': this.saveSleepData(); break;
+                        }
+                    }
+                    
+                    // Limpar flag de modificação
+                    modifiedInputs.forEach(input => input.removeAttribute('data-modified'));
                 }
             }
-        }, 30000);
+            
+            // ==============================
+            // MODAIS DE EDIÇÃO
+            // ==============================
+            
+            showDaySelectionModal() {
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <h2 class="modal-title">Selecionar Dia</h2>
+                        <div class="day-selection">
+                            ${Object.keys(this.trainingData).map(dayKey => `
+                                <button class="day-option" data-day="${dayKey}">
+                                    ${this.trainingData[dayKey].day}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div class="modal-buttons">
+                            <button class="modal-btn cancel" id="cancelDayBtn">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                modal.style.display = 'flex';
+                
+                // Event Listeners
+                modal.querySelectorAll('.day-option').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const dayKey = btn.dataset.day;
+                        modal.remove();
+                        this.showEditExerciseModal(dayKey);
+                    });
+                });
+                
+                modal.querySelector('#cancelDayBtn').addEventListener('click', () => {
+                    modal.remove();
+                });
+            }
+            
+            showEditExerciseModal(dayKey, exercise = null) {
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <h2 class="modal-title">
+                            ${exercise ? 'Editar Exercício' : 'Novo Exercício'}
+                        </h2>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <label>Nome do Exercício</label>
+                                <input type="text" id="editExerciseName" 
+                                       value="${exercise ? exercise.name : ''}" 
+                                       placeholder="Ex: Supino Reto">
+                            </div>
+                            <div class="input-group">
+                                <label>Séries e Repetições</label>
+                                <input type="text" id="editExerciseSets" 
+                                       value="${exercise ? exercise.sets : '4x8-12'}" 
+                                       placeholder="Ex: 4x8-12">
+                            </div>
+                            <div class="input-group">
+                                <label>Notas (opcional)</label>
+                                <textarea id="editExerciseNotes" 
+                                          placeholder="Dicas, ajustes...">${exercise ? exercise.notes || '' : ''}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-buttons">
+                            <button class="modal-btn confirm" id="saveExerciseBtn">
+                                ${exercise ? 'Atualizar' : 'Adicionar'}
+                            </button>
+                            ${exercise ? `
+                            <button class="modal-btn delete" id="deleteExerciseBtn">
+                                <i class="fas fa-trash"></i> Excluir
+                            </button>
+                            ` : ''}
+                            <button class="modal-btn cancel" id="cancelEditBtn">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                modal.style.display = 'flex';
+                
+                // Event Listeners
+                modal.querySelector('#saveExerciseBtn').addEventListener('click', () => {
+                    const name = document.getElementById('editExerciseName').value;
+                    const sets = document.getElementById('editExerciseSets').value;
+                    const notes = document.getElementById('editExerciseNotes').value;
+                    
+                    if (name && sets) {
+                        if (exercise) {
+                            // Atualizar
+                            exercise.name = name;
+                            exercise.sets = sets;
+                            exercise.notes = notes;
+                            this.saveTrainingData();
+                            this.renderTrainingGrid();
+                            this.showNotification('Exercício atualizado!', 'success');
+                        } else {
+                            // Adicionar novo
+                            if (!this.trainingData[dayKey]) {
+                                this.trainingData[dayKey] = {
+                                    day: dayKey.toUpperCase(),
+                                    muscles: "NOVO GRUPO MUSCULAR",
+                                    exercises: []
+                                };
+                            }
+                            
+                            this.trainingData[dayKey].exercises.push({
+                                id: Date.now(),
+                                name: name,
+                                sets: sets,
+                                completed: false,
+                                notes: notes
+                            });
+                            
+                            this.saveTrainingData();
+                            this.renderTrainingGrid();
+                            this.showNotification('Exercício adicionado!', 'success');
+                        }
+                        modal.remove();
+                    } else {
+                        this.showNotification('Preencha todos os campos obrigatórios', 'error');
+                    }
+                });
+                
+                if (exercise) {
+                    modal.querySelector('#deleteExerciseBtn').addEventListener('click', () => {
+                        if (confirm('Tem certeza que deseja excluir este exercício?')) {
+                            this.trainingData[dayKey].exercises = this.trainingData[dayKey].exercises.filter(ex => ex.id !== exercise.id);
+                            this.saveTrainingData();
+                            this.renderTrainingGrid();
+                            this.showNotification('Exercício excluído!', 'success');
+                            modal.remove();
+                        }
+                    });
+                }
+                
+                modal.querySelector('#cancelEditBtn').addEventListener('click', () => {
+                    modal.remove();
+                });
+            }
+            
+            showEditChecklistModal(item = null) {
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <h2 class="modal-title">
+                            ${item ? 'Editar Item' : 'Novo Item'}
+                        </h2>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <label>Título do Item</label>
+                                <input type="text" id="editItemTitle" 
+                                       value="${item ? item.title : ''}" 
+                                       placeholder="Ex: Beber 5L de água">
+                            </div>
+                            <div class="input-group">
+                                <label>Meta (quantidade)</label>
+                                <input type="number" id="editItemTarget" 
+                                       value="${item ? item.target : 1}" 
+                                       min="1" step="1">
+                            </div>
+                            <div class="input-group">
+                                <label>Ícone (classe FontAwesome)</label>
+                                <input type="text" id="editItemIcon" 
+                                       value="${item ? item.icon : 'fas fa-check'}" 
+                                       placeholder="fas fa-tint">
+                            </div>
+                        </div>
+                        <div class="modal-buttons">
+                            <button class="modal-btn confirm" id="saveItemBtn">
+                                ${item ? 'Atualizar' : 'Adicionar'}
+                            </button>
+                            ${item ? `
+                            <button class="modal-btn delete" id="deleteItemBtn">
+                                <i class="fas fa-trash"></i> Excluir
+                            </button>
+                            ` : ''}
+                            <button class="modal-btn cancel" id="cancelItemBtn">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                modal.style.display = 'flex';
+                
+                // Event Listeners
+                modal.querySelector('#saveItemBtn').addEventListener('click', () => {
+                    const title = document.getElementById('editItemTitle').value;
+                    const target = parseInt(document.getElementById('editItemTarget').value);
+                    const icon = document.getElementById('editItemIcon').value;
+                    
+                    if (title && target > 0) {
+                        if (item) {
+                            // Atualizar
+                            item.title = title;
+                            item.target = target;
+                            item.icon = icon;
+                            this.saveChecklistData();
+                            this.renderChecklist();
+                            this.showNotification('Item atualizado!', 'success');
+                        } else {
+                            // Adicionar novo
+                            this.checklistData.push({
+                                id: Date.now(),
+                                title: title,
+                                icon: icon,
+                                progress: 0,
+                                completed: false,
+                                target: target,
+                                current: 0,
+                                editable: true
+                            });
+                            
+                            this.saveChecklistData();
+                            this.renderChecklist();
+                            this.showNotification('Item adicionado!', 'success');
+                        }
+                        modal.remove();
+                    } else {
+                        this.showNotification('Preencha todos os campos corretamente', 'error');
+                    }
+                });
+                
+                if (item) {
+                    modal.querySelector('#deleteItemBtn').addEventListener('click', () => {
+                        if (confirm('Tem certeza que deseja excluir este item?')) {
+                            this.checklistData = this.checklistData.filter(i => i.id !== item.id);
+                            this.saveChecklistData();
+                            this.renderChecklist();
+                            this.showNotification('Item excluído!', 'success');
+                            modal.remove();
+                        }
+                    });
+                }
+                
+                modal.querySelector('#cancelItemBtn').addEventListener('click', () => {
+                    modal.remove();
+                });
+            }
+            
+            loadAllData() {
+                this.loadTrainingData();
+                this.loadChecklistData();
+                this.loadNutritionData();
+                this.loadMeasuresData();
+                this.loadHormonesData();
+                this.loadSupplementsData();
+                this.loadSleepData();
+                this.loadMotivation();
+            }
+        }
 
-        // Atualizar data a cada minuto
-        setInterval(updateCurrentDate, 60000);
+        // ==============================
+        // INICIALIZAÇÃO DO SISTEMA
+        // ==============================
+
+        let amandaPro;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            amandaPro = new AmandaProSystem();
+            
+            // Configurar atalhos de teclado
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+S para salvar
+                if (e.ctrlKey && e.key === 's') {
+                    e.preventDefault();
+                    amandaPro.saveAllData();
+                    amandaPro.showNotification("Dados salvos!", "success");
+                }
+                
+                // Escape para fechar modais
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        if (modal.style.display === 'flex') {
+                            modal.style.display = 'none';
+                        }
+                    });
+                }
+            });
+            
+            // Adicionar botão de logout
+            const logoutBtn = document.createElement('button');
+            logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
+            logoutBtn.className = 'action-btn';
+            logoutBtn.style.position = 'fixed';
+            logoutBtn.style.top = '20px';
+            logoutBtn.style.right = '20px';
+            logoutBtn.style.zIndex = '1000';
+            logoutBtn.onclick = () => amandaPro.logout();
+            document.body.appendChild(logoutBtn);
+            
+            console.log('✅ Sistema AMANDA PRO carregado e pronto!');
+        });
+
+        // ==============================
+        // FUNÇÕES GLOBAIS PARA HTML
+        // ==============================
+
+        function saveNutritionData() {
+            amandaPro.saveNutritionData();
+        }
+
+        function saveMeasuresData() {
+            amandaPro.saveMeasuresData();
+        }
+
+        function saveHormoneData() {
+            amandaPro.saveHormoneData();
+        }
+
+        function saveSupplementsData() {
+            amandaPro.saveSupplementsData();
+        }
+
+        function saveSleepData() {
+            amandaPro.saveSleepData();
+        }
     </script>
 </body>
 </html>
